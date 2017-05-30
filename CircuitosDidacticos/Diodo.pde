@@ -1,9 +1,9 @@
-class Resistencia extends Componentes{
+class Diodo extends Componentes{
   float posX, posY;
-  String name = "RESISTENCIA";
+  String name = "DIODO";
   int vis, rot;
   
-  Resistencia(float x, float y, int v, int r){
+  Diodo(float x, float y, int v, int r){
     setPosX(x);
     setPosY(y);
     setVis(v);
@@ -44,24 +44,33 @@ class Resistencia extends Componentes{
   
   int getRot(){
     return rot;
-  }
+  } 
   
-  void figura(float x, float y, int r){   
-    pushMatrix();
-    translate(x, y);
-    rotate(r*PI/2);
-    noFill();
+  void figura(float x, float y, int r){
     stroke(0, 0, 255);
     strokeWeight(3);
+    pushMatrix();
+    translate(x , y);
+    rotate(r*PI/2);
     beginShape();
     vertex(0,0);
-    vertex(10,0);
-    vertex(20,-20);
-    vertex(30,20);
-    vertex(40,-20);
-    vertex(50,20);
-    vertex(60,0);
-    vertex(70,0);
+    vertex(25,0);
+    endShape();
+    fill(0, 0, 255);
+    beginShape();
+    vertex(25,-25);
+    vertex(25,25);
+    vertex(50,0);
+    endShape(CLOSE);
+    
+    beginShape();
+    vertex(50,-25);
+    vertex(50,25);
+    endShape();
+    
+    beginShape();
+    vertex(50,0);
+    vertex(75,0);
     endShape();
     popMatrix();
   }

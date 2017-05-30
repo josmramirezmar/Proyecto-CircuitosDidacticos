@@ -1,9 +1,9 @@
-class Resistencia extends Componentes{
+class Tierra extends Componentes{
   float posX, posY;
-  String name = "RESISTENCIA";
+  String name = "TIERRA";
   int vis, rot;
   
-  Resistencia(float x, float y, int v, int r){
+  Tierra(float x, float y, int v, int r){
     setPosX(x);
     setPosY(y);
     setVis(v);
@@ -46,22 +46,19 @@ class Resistencia extends Componentes{
     return rot;
   }
   
-  void figura(float x, float y, int r){   
+  void figura(float x, float y, int r){
     pushMatrix();
     translate(x, y);
     rotate(r*PI/2);
     noFill();
     stroke(0, 0, 255);
     strokeWeight(3);
-    beginShape();
-    vertex(0,0);
-    vertex(10,0);
-    vertex(20,-20);
-    vertex(30,20);
-    vertex(40,-20);
-    vertex(50,20);
-    vertex(60,0);
-    vertex(70,0);
+    beginShape(LINES);
+    strokeWeight(3);
+    vertex(12.5,0);vertex(12.5,-20);
+    vertex(0,0);vertex(25,0);
+    vertex(5,5);vertex(20,5);
+    vertex(10,10);vertex(15,10);
     endShape();
     popMatrix();
   }

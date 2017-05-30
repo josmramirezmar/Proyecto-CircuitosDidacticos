@@ -1,9 +1,9 @@
-class Resistencia extends Componentes{
+class Bobina extends Componentes{
   float posX, posY;
-  String name = "RESISTENCIA";
+  String name = "BOBINA";
   int vis, rot;
   
-  Resistencia(float x, float y, int v, int r){
+  Bobina(float x, float y, int v, int r){
     setPosX(x);
     setPosY(y);
     setVis(v);
@@ -46,22 +46,20 @@ class Resistencia extends Componentes{
     return rot;
   }
   
-  void figura(float x, float y, int r){   
+  void figura(float x, float y, int r){
     pushMatrix();
     translate(x, y);
     rotate(r*PI/2);
     noFill();
     stroke(0, 0, 255);
-    strokeWeight(3);
     beginShape();
-    vertex(0,0);
-    vertex(10,0);
-    vertex(20,-20);
-    vertex(30,20);
-    vertex(40,-20);
-    vertex(50,20);
-    vertex(60,0);
-    vertex(70,0);
+    strokeWeight(3);
+    vertex(0,0);vertex(20,0);
+    quadraticVertex(35,-40,50,0);
+    quadraticVertex(65,-40,80,0);
+    quadraticVertex(95,-40,110,0);
+    quadraticVertex(125,-40,140,0);
+    vertex(160,0);
     endShape();
     popMatrix();
   }

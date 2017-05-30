@@ -1,9 +1,9 @@
-class Resistencia extends Componentes{
+class Transistor extends Componentes{
   float posX, posY;
-  String name = "RESISTENCIA";
+  String name = "TRANSISTOR";
   int vis, rot;
   
-  Resistencia(float x, float y, int v, int r){
+  Transistor(float x, float y, int v, int r){
     setPosX(x);
     setPosY(y);
     setVis(v);
@@ -46,23 +46,28 @@ class Resistencia extends Componentes{
     return rot;
   }
   
-  void figura(float x, float y, int r){   
+  void figura(float x, float y, int r){
     pushMatrix();
     translate(x, y);
     rotate(r*PI/2);
     noFill();
     stroke(0, 0, 255);
+    ellipse(0,0,70,70);
+    beginShape(LINES);
     strokeWeight(3);
-    beginShape();
-    vertex(0,0);
-    vertex(10,0);
-    vertex(20,-20);
-    vertex(30,20);
-    vertex(40,-20);
-    vertex(50,20);
-    vertex(60,0);
-    vertex(70,0);
+    vertex(-60,0);vertex(-15,0);
+    vertex(-15,-18);vertex(-15,18);
+    vertex(-15,-5);vertex(15,-25);
+    vertex(15,-25);vertex(15,-60);
+    vertex(-15,5);vertex(15,25);
+    vertex(15,25);vertex(15,60);  
     endShape();
+    beginShape();
+    fill(0);
+    vertex(14,24);
+    vertex(12,20);
+    vertex(9.75,25);
+    endShape(CLOSE);
     popMatrix();
   }
 }
