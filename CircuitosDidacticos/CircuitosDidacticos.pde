@@ -90,7 +90,7 @@ void setup() {
   ubcx[2]="tabConx.csv";
   ubps[2]="tabPs.csv";
   
-  guij();
+  gui();
   
   
   mp3 = new SoundFile(this, "mFondoDZ.mp3");
