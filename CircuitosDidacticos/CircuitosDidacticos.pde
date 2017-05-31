@@ -1,9 +1,10 @@
 import de.looksgood.ani.*;
 import de.looksgood.ani.easing.*;
 import controlP5.*;  
-import processing.sound.*;
+//import processing.sound.*;
 
-SoundFile mp3;
+//SoundFile mp3;
+ControlFrame cf;
 
 ControlP5 cp5, cp6, cp7;
 PImage Resistencia;
@@ -17,7 +18,7 @@ PImage FuenteV;
 PImage Transistor;
 PImage img;
 PImage C;
-boolean cua;
+boolean cua=true;
 
 RadioButton r;
 Textarea myTextarea;
@@ -93,26 +94,24 @@ void setup() {
   gui();
   
   
-  mp3 = new SoundFile(this, "mFondoDZ.mp3");
-  mp3.loop();
+  //mp3 = new SoundFile(this, "mFondoDZ.mp3");
+  //mp3.loop();
   
   for(int i=0; i<10; i++){
     point[i] = new PVector(width/2, height/2); 
     ro[i]=0;
   }
   targetn = new PVector(width/2, height/2);
-  
+  cf = new ControlFrame(this , 1000, 700, "Controls");
   Ani.init(this);
 }
 
 void draw(){  
   imageMode(CORNERS);
   image(img, 0, 0, 1000, 700);
-  if(cua == true){
     imageMode(CORNERS);
     image(C, 150, 130, 800, 500);
-  }
-
+  
   if(dis == true){
     for (int i = 0; i < comps.size(); i++) {
       Componentes part = comps.get(i);
@@ -124,6 +123,9 @@ void draw(){
     }
   }
 }
+void settings() {
+    size(1000, 700);
+  }
 
 void mousePressed(){
   targetn.x = mouseX;
@@ -196,7 +198,208 @@ void keyPressed(){
     cabs.add(ca);
     dis = true;
   }
+}  
+
+class ControlFrame extends PApplet {
+
+  int w, h;
+  PApplet parent;
+  ControlP5 cp5;
+
+public ControlFrame(PApplet _parent, int _w, int _h, String _name) {
+    super();   
+    parent = _parent;
+    PApplet.runSketch(new String[]{this.getClass().getName()}, this);
+  }
+
+  public void settings() {
+    size(1000, 700);
+  }
+
+  public void setup() {
+    
+    
+   principal();
+   //cJ();
+  }
+  
+void principal(){
+  
+  cp6 = new ControlP5(this);
+  
+  myTextlabel1 = cp6.addTextlabel("label")
+                    .setText("INTERACTIVE")                 
+                    .setPosition(170,80)
+                    .setColorValue(0xffffff00)
+                    .setFont(createFont("Georgia",90))
+                    ;
+   myTextlabel2 = cp6.addTextlabel("label2")
+                    .setText("  CIRCUITS")
+                    .setPosition(230,180)
+                    .setColorValue(0xffffff00)
+                    .setFont(createFont("Georgia",90))
+                    ;                 
+
+ cp6.addButton("Sonidop")
+     .setValue(0)
+     .setPosition(910,20)
+     .setSize(50,40)
+     .setColorBackground(color(0,0,150))
+     ;
+
+cp6.addButton("JUGAR")
+     .setValue(1)
+     .setPosition(280,400)
+     .setSize(120,90)
+     .setColorBackground(color(0,0,150))
+     ;
+cp6.addButton("CREAR_NIVEL")
+     .setValue(2)
+     .setPosition(450,400)
+     .setSize(120,90)
+     .setColorBackground(color(0,0,150))
+     ;
+cp6.addButton("COMOJUGAR")
+     .setValue(3)
+     .setPosition(620,400)
+     .setSize(120,90)
+     .setColorBackground(color(0,0,150))
+     ;     
+     
+     
+     myTextarea1 = cp6.addTextarea("txt")
+                  .setPosition(780,610)
+                  .setSize(220,90)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(15)
+                  .setColor(color(255))
+                  .setColorBackground(color(255,100))
+                  .setColorForeground(color(255,100));
+                  
+                  ;
+  myTextarea1.setText("Creado por:"
+                    + "       "
+                    +" Cortes Santiago"
+                    +" "
+                    +" Ramirez Jose Manuel"
+                    +" Ramirez Juan Esteban"
+                    );
 }
+public void controlEvent(ControlEvent theEvent) {
+  println(theEvent.getController().getName());
+  n = 0;
+}
+
+public void COMOJUGAR(int theValue){
+if(mouseButton==LEFT){
+cJ();
+cp6.hide();
+}
+ 
+}
+public void JUGAR(int theValue){
+  
+}
+
+void cJ(){
+  cua = false;
+  cp5 = new ControlP5(this);
+  myTextlabel1 = cp5.addTextlabel("label")
+                    .setText("COMO")                 
+                    .setPosition(110,80)
+                    .setColorValue(0xffffff00)
+                    .setFont(createFont("Georgia",110))
+                    ;
+   myTextlabel2 = cp5.addTextlabel("label2")
+                    .setText("JUGAR")
+                    .setPosition(480,80)
+                    .setColorValue(0xffffff00)
+                    .setFont(createFont("Georgia",110))
+                    ;                 
+
+  cp5.addButton("Atras")
+     .setValue(0)
+     .setPosition(940,20)
+     .setSize(50,40)
+     .setColorBackground(color(200, 54,150))
+     ;
+  
+  
+  cp5.addButton("Sonidoc")
+     .setValue(50)
+     .setPosition(885,20)
+     .setSize(50,40)
+     .setColorBackground(color(200, 54,150))
+     ;
+
+
+     myTextarea1 = cp5.addTextarea("txt1")
+                  .setPosition(100,300)
+                  .setSize(800,300)
+                  .setFont(createFont("arial",19))
+                  .setLineHeight(15)
+                  .setColor(color(0))
+                  .setColorBackground(color(255))
+                  .setColorForeground(color(255,100));
+                  ;
+  myTextarea1.setText("*El juego consiste en completar el circuito  que aparece en pantalla"
+                    +" colocando los diferentes componentes en los espacios correspondientes."
+                    +"                                                                                                             "
+                    +"                                                                                                             "
+                    +"*Hay dos modos de juego, jugar y crear nivel. Crear nivel permite diseñar un nuevo circuito y guardarlo. Jugar permite jugar niveles creados."
+                    +"                                                                                                              "
+                    +"                                                                                                              "
+                    +"*Para colocar los componentes haga click en el componente que necesite, (siempre comenzado por la fuente) este aparecera dentro de la pantalla, maximo se pueden poner 10 componentes."
+                    +"                                                                                                                                      "
+                    +"                                                                                                                                      "
+                    +"*Para mover los componentes  presione un numero dependiendo del orden en que aparecieron los componentes (1-0) y muevalo con el click del mouse, para dejar de mover el componente oprima otra tecla."
+                    +"                                                                                                                             "
+                    +"                                                                                                                             "
+                    +"*Para rotar los componentes se rota el ultimo componente colocado y se oprime SHIFT para girarlo 90 grados."
+                    +"                                                                                                                                   "
+                    +"                                                                                                                                   "
+                    +"*Para abrir y cerrar el acordeon oprima ALT q y ALT w respectivamente."
+                    +"                                                                                           "
+                    +"                                                                                           "
+                    +"*Para añadir cable utilice las flechas para ubicar el cable la posicion del mouse"
+                    );
+     
+     myTextarea = cp5.addTextarea("txt")
+                  .setPosition(750,610)
+                  .setSize(300,90)
+                  .setFont(createFont("arial",19))
+                   .setBorderColor(155)
+                  .setColor(color(255))
+                  .setColorBackground(color(255,100))
+                  .setColorForeground(color(255,100));
+                  ;
+  myTextarea.setText("Creado por:"
+                    + "                               "
+                    +" Cortes Santiago"
+                    +" "
+                    +"                        Ramirez Jose Manuel"
+                    +"                  Ramirez Juan Esteban"
+                    );
+}
+void Sonidop(){
+  //mp3.stop();
+}
+void Atras(int theValue){
+  if(cp5.isVisible() && mouseButton == RIGHT){
+    cp6.show();
+    cp5.hide();
+  }
+}
+
+ void draw() {
+
+   imageMode(CORNERS);
+  image(img, 0, 0, 1000, 700);
+  
+  }
+  
+}
+
 
 void gui(){
   cua = true;
@@ -250,7 +453,7 @@ void gui(){
      .setColorBackground(color(255))
      ;
      
-  cp5.addButton("Atras")
+  cp5.addButton("Jugar")
      .setValue(0)
      .setPosition(940,20)
      .setSize(50,40)
@@ -476,10 +679,14 @@ public void Trans(){
   n++;
 }
 
-public void Atras() {
+public void Jugar() {
+  if(mouseButton==LEFT && cp5.isVisible()){
+   cp5.hide(); 
+  guij();
+  }
 }
 public void Sonido() {
-  mp3.stop();
+  //mp3.stop();
   
 }
 public void Borrar() {
@@ -550,70 +757,6 @@ void fpistasd(String s){
   saveTable(tabPs, join(ubps, "/"));  
 }
 
-void principal(){
-  cua = false;
-  cp6 = new ControlP5(this);
-  
-  myTextlabel1 = cp6.addTextlabel("label")
-                    .setText("INTERACTIVE")                 
-                    .setPosition(170,80)
-                    .setColorValue(0xffffff00)
-                    .setFont(createFont("Georgia",90))
-                    ;
-   myTextlabel2 = cp6.addTextlabel("label2")
-                    .setText("  CIRCUITS")
-                    .setPosition(230,180)
-                    .setColorValue(0xffffff00)
-                    .setFont(createFont("Georgia",90))
-                    ;                 
-
- cp6.addButton("Sonidop")
-     .setValue(0)
-     .setPosition(910,20)
-     .setSize(50,40)
-     .setColorBackground(color(0,0,150))
-     ;
-
-cp6.addButton("JUGAR")
-     .setValue(1)
-     .setPosition(280,400)
-     .setSize(120,90)
-     .setColorBackground(color(0,0,150))
-     ;
-cp6.addButton("CREAR_NIVEL")
-     .setValue(2)
-     .setPosition(450,400)
-     .setSize(120,90)
-     .setColorBackground(color(0,0,150))
-     ;
-cp6.addButton("COMO JUGAR")
-     .setValue(3)
-     .setPosition(620,400)
-     .setSize(120,90)
-     .setColorBackground(color(0,0,150))
-     ;     
-     
-     
-     myTextarea1 = cp6.addTextarea("txt")
-                  .setPosition(780,610)
-                  .setSize(220,90)
-                  .setFont(createFont("arial",20))
-                  .setLineHeight(15)
-                  .setColor(color(255))
-                  .setColorBackground(color(255,100))
-                  .setColorForeground(color(255,100));
-                  ;
-  myTextarea1.setText("Creado por:"
-                    + "       "
-                    +" Cortes Santiago"
-                    +" "
-                    +" Ramirez Jose Manuel"
-                    +" Ramirez Juan Esteban"
-                    );
-}
-//Table tabCompj, tabConxj, tabTmp, tabPsj;
-//ArrayList<Componentes> compsj = new ArrayList<Componentes>();
-//ArrayList<Cable> cabsj = new ArrayList<Cable>();
 void guij() {
   cua = true;
   cp7 = new ControlP5(this);
@@ -627,7 +770,7 @@ void guij() {
                     .setFont(createFont("Georgia",80))
                     ;
 
-  cp7.addButton("Atrasj")
+  cp7.addButton("Crear")
      .setValue(0)
      .setPosition(940,20)
      .setSize(50,40)
@@ -845,10 +988,14 @@ public void Transj(){
   n++;
 }
 
-public void Atrasj() {
+public void Crear() {
+  if(mouseButton==RIGHT && cp7.isVisible()){
+   cp7.hide(); 
+  gui();
+  }
 }
 public void Sonidoj() {
-  mp3.stop();  
+  //mp3.stop();  
 }
 public void Borrarj() {
   comps.clear();
@@ -891,13 +1038,13 @@ void comparar(){
     if(eval == tabComp.getRowCount()){
       textSize(100);
       fill(0, 102, 153);
-      text("GANASTE", width/4, height/2);
+      text("PERDISTE", width/4, height/2);
     }
     else{
       //mal
       textSize(100);
       fill(0, 102, 153);
-      text("PERDISTE", width/4, height/2);
+      text("GANASTE", width/4, height/2);
       break;
     }
   }
@@ -918,92 +1065,4 @@ void cargarP(){
   p1 = tabPsj.getString(0, "ps");
   p2 = tabPsj.getString(1, "ps");
   p3 = tabPsj.getString(2, "ps");
-}
-void cJ(){
-  cua = false;
-  size(1000,700);
-  cp5 = new ControlP5(this);
-img = loadImage("circuitofondo.jpg");
-  myTextlabel1 = cp5.addTextlabel("label")
-                    .setText("COMO")                 
-                    .setPosition(110,80)
-                    .setColorValue(0xffffff00)
-                    .setFont(createFont("Georgia",110))
-                    ;
-   myTextlabel2 = cp5.addTextlabel("label2")
-                    .setText("JUGAR")
-                    .setPosition(480,80)
-                    .setColorValue(0xffffff00)
-                    .setFont(createFont("Georgia",110))
-                    ;                 
-
-  cp5.addButton("Atras")
-     .setValue(0)
-     .setPosition(940,20)
-     .setSize(50,40)
-     .setColorBackground(color(200, 54,150))
-     ;
-  
-  
-  cp5.addButton("Sonidoc")
-     .setValue(50)
-     .setPosition(885,20)
-     .setSize(50,40)
-     .setColorBackground(color(200, 54,150))
-     ;
-
-
-     myTextarea1 = cp5.addTextarea("txt1")
-                  .setPosition(100,200)
-                  .setSize(800,400)
-                  .setFont(createFont("arial",19))
-                  .setLineHeight(15)
-                  .setColor(color(255))
-                  .setColorBackground(color(255,100))
-                  .setColorForeground(color(255,100));
-                  ;
-  myTextarea1.setText("*El juego consiste en completar el circuito  que aparece en pantalla"
-                    +" colocando los diferentes componentes en los espacios correspondientes."
-                    +"                                                                                                             "
-                    +"                                                                                                             "
-                    +"*Hay dos modos de juego, jugar y crear nivel. Crear nivel permite diseñar un nuevo circuito y guardarlo. Jugar permite jugar niveles creados."
-                    +"                                                                                                              "
-                    +"                                                                                                              "
-                    +"*Para colocar los componentes haga click en el componente que necesite, (siempre comenzado por la fuente) este aparecera dentro de la pantalla, maximo se pueden poner 10 componentes."
-                    +"                                                                                                                                      "
-                    +"                                                                                                                                      "
-                    +"*Para mover los componentes  presione un numero dependiendo del orden en que aparecieron los componentes (1-0) y muevalo con el click del mouse, para dejar de mover el componente oprima otra tecla."
-                    +"                                                                                                                             "
-                    +"                                                                                                                             "
-                    +"*Para rotar los componentes se rota el ultimo componente colocado y se oprime SHIFT para girarlo 90 grados."
-                    +"                                                                                                                                   "
-                    +"                                                                                                                                   "
-                    +"*Para abrir y cerrar el acordeon oprima ALT q y ALT w respectivamente."
-                    +"                                                                                           "
-                    +"                                                                                           "
-                    +"*Para añadir cable utilice las flechas para ubicar el cable la posicion del mouse"
-                    );
-     
-     myTextarea = cp5.addTextarea("txt")
-                  .setPosition(750,610)
-                  .setSize(300,90)
-                  .setFont(createFont("arial",19))
-                   .setBorderColor(155)
-                  .setColor(color(255))
-                  .setColorBackground(color(255,100))
-                  .setColorForeground(color(255,100));
-                  ;
-  myTextarea.setText("Creado por:"
-                    + "                               "
-                    +" Cortes Santiago"
-                    +" "
-                    +"                        Ramirez Jose Manuel"
-                    +"                  Ramirez Juan Esteban"
-                    );
-}
-void Sonidoc(){
-  mp3.stop();
-}
-void Sonidop(){
-  mp3.stop();
 }
